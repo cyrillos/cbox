@@ -3,9 +3,10 @@ cflags = $cflags -fexceptions -funwind-tables -fno-omit-frame-pointer -fno-stack
 cflags = $cflags -fno-common -fopenmp -msse2 -std=c99 -Wall -Wextra -Wno-strict-aliasing -Wno-char-subscripts
 cflags = $cflags -Wno-format-truncation -Wno-gnu-alignof-expression -fno-gnu89-inline -Wno-cast-function-type
 cflags = $cflags -Werror -Wno-unused-parameter -Wno-unused -Wno-unused-result -Wno-tautological-compare
-cflags = $cflags -ggdb3 -O0 -I./
+#cflags = $cflags -ggdb3 -O0 -I./
+cflags = $cflags -O2 -I./
 
-ldflags = -ggdb3
+#ldflags = -ggdb3
 
 rule cc
   description = CC $out
