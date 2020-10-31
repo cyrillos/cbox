@@ -1,0 +1,5 @@
+*.swp
+*.o
+hvsrb
+.ninja_deps
+.ninja_log

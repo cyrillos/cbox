@@ -1,0 +1,30 @@
+cflags = $cflags -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS=1 -D__STDC_FORMAT_MACROS=1
+cflags = $cflags -fexceptions -funwind-tables -fno-omit-frame-pointer -fno-stack-protector
+cflags = $cflags -fno-common -fopenmp -msse2 -std=c99 -Wall -Wextra -Wno-strict-aliasing -Wno-char-subscripts
+cflags = $cflags -Wno-format-truncation -Wno-gnu-alignof-expression -fno-gnu89-inline -Wno-cast-function-type
+cflags = $cflags -Werror -Wno-unused-parameter -Wno-unused -Wno-unused-result -Wno-tautological-compare
+cflags = $cflags -ggdb3 -O0 -I./
+
+ldflags = -ggdb3
+
+rule cc
+  description = CC $out
+  command = gcc $cflags -c $in -o $out -MD -MF $out.d
+  depfile = $out.d
+  deps = gcc
+
+rule link
+  description = LINK $out
+  command = gcc $ldflags $in -o $out
+
+build main.o: cc main.c
+build assoc.o: cc assoc.c
+build PMurHash.o: cc PMurHash.c
+build hvsrb: link main.o assoc.o PMurHash.o
+
+default hvsrb
+
+rule ctags
+  command = ctags -f tags -R .
+
+build tags: ctags
